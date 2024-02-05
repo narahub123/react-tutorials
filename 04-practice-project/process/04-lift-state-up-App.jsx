@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Header from "./components/Header/Header.jsx";
-import UserInput from "./components/UserInput/UserInput.jsx";
-import Results from "./components/Results.jsx";
+import Header from "../src/components/Header/Header.jsx";
+import UserInput from "../src/components/UserInput/UserInput.jsx";
+import Results from "../src/components/Results.jsx";
 
 function App() {
   // lifting state up
