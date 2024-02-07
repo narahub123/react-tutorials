@@ -1,17 +1,15 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
-// import useRef bcoz we need a separate ref for reaching out to the dialog
-// bcoz the idea is to detach the dialog element, which is used in the result modal
-// component from any other outer components
+
 const ResultModal = forwardRef(function ResultModal(
-  { result, targetTime },
+  { targetTime, remainingTime, onReset },
   ref
 ) {
   const dialog = useRef();
-  // to define properties and methods that should be accessible on the component from outside the component
-  // useImperativeHanle works with forwardRef
-  // first argument is a value from forwardRef
-  // second argument must be a function that return an object which groups all the properties and methods
-  // that should be exposed by the component to other components
+
+  const userLost = remainingTime <= 0;
+  const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
+  const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
+
   useImperativeHandle(ref, () => {
     return {
       open() {
@@ -20,16 +18,17 @@ const ResultModal = forwardRef(function ResultModal(
     };
   });
   return (
-    // dialog by default is invisible
     <dialog ref={dialog} className="result-modal">
-      <h2>You {result} </h2>
+      {userLost && <h2>You lost</h2>}
+      {!userLost && <h2>Your score : {score}</h2>}
       <p>
         The target time was <strong>{targetTime}</strong>
       </p>
       <p>
-        You stopped the timer with <strong>X seconds left.</strong>
+        You stopped the timer with{" "}
+        <strong>{formattedRemainingTime} seconds left.</strong>
       </p>
-      <form method="dialog">
+      <form method="dialog" onSubmit={onReset}>
         <button>Close</button>
       </form>
     </dialog>
