@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function NewTask({ onAdd }) {
-  const [enteredTask, setEnteredTask] = useState();
+  const [enteredTask, setEnteredTask] = useState("");
 
   function handleChange(event) {
     setEnteredTask(event.target.value);
@@ -10,6 +10,9 @@ export default function NewTask({ onAdd }) {
   // forward the entered value to the app component in the end
   // and reset it back to an empty string
   function handleClick() {
+    if (enteredTask.trim() === "") {
+      return;
+    }
     onAdd(enteredTask);
     setEnteredTask("");
   }
