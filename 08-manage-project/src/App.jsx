@@ -6,9 +6,6 @@ import { useState } from "react";
 function App() {
   const [projectState, setProjectState] = useState({
     selectedProjectId: undefined,
-    // used to either store the id of the project that was selected
-    // when we have multiple projects that can be selected
-    // or null if we want to add a new project, or undefined if we're not adding a new project
     projects: [],
   });
 
@@ -23,18 +20,18 @@ function App() {
 
   function handleAddProject(projectData) {
     setProjectState((prevState) => {
+      const projectId = Math.random();
       const newProject = {
         ...projectData,
-        id: Math.random(),
+        id: projectId,
       };
       return {
         ...prevState,
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject],
       };
     });
   }
-
-  console.log(projectState);
 
   let content;
 
@@ -46,7 +43,10 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar onStartAddProject={handleStartAddProject} />
+      <ProjectsSidebar
+        onStartAddProject={handleStartAddProject}
+        projects={projectState.projects}
+      />
       {content}
     </main>
   );
