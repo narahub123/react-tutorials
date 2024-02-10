@@ -10,18 +10,23 @@ import { sortPlacesByDistance } from "./loc.js";
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
+  const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
   // get user's location
-  // navigator object which is provided by browser
-  // -> the user is asked for permission to get their location
-  // side effect : it's not directly related to renderable jsx code 
+  // the sorted places are not available immedately bcoz the operation takes some time
+  // getting the location after rendering App component
   const sortedPlaces = navigator.geolocation.getCurrentPosition((position) => {
     sortPlacesByDistance(
       AVAILABLE_PLACES,
       position.coords.latitude,
       position.coords.longitude
     );
+
+    // updated available places after fetching the operation get user's location
+    setAvailablePlaces(sortedPlaces);
+    // it causes re-excute the App component function
+    // fetching user's location again 
   });
 
   function handleStartRemovePlace(id) {
@@ -76,7 +81,7 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={AVAILABLE_PLACES}
+          places={availablePlaces}
           onSelectPlace={handleSelectPlace}
         />
       </main>
