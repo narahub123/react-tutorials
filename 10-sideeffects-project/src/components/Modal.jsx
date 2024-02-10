@@ -1,15 +1,19 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-function Modal({ open, children }) {
+function Modal({ open, children, onClose }) {
   const dialog = useRef();
 
-  dialog.current.showModal();
-  // only this showModal() is called the backdrop is open
-  // which needs to use forwardRef()
+  useEffect(() => {
+    if (open) {
+      dialog.current.showModal();
+    } else {
+      dialog.current.close();
+    }
+  }, [open]);
 
   return createPortal(
-    <dialog className="modal" ref={dialog} open={open}>
+    <dialog className="modal" ref={dialog} onClose={onClose}>
       {children}
     </dialog>,
     document.getElementById("modal")
