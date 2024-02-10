@@ -13,11 +13,6 @@ function App() {
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
-  // it doesn't return a value
-  // two arguments are needed
-  // first argument : wrapping side effect code - will be executed after every component execution
-  // sconde argument : an array of dependency
-  // if there is a change of dependency array, it executes first argument function
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const sortedPlaces = sortPlacesByDistance(
@@ -29,10 +24,6 @@ function App() {
       setAvailablePlaces(sortedPlaces);
     });
   }, []);
-
-  // get user's location
-  // the sorted places are not available immedately bcoz the operation takes some time
-  // getting the location after rendering App component
 
   function handleStartRemovePlace(id) {
     modal.current.open();
@@ -51,6 +42,18 @@ function App() {
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
+
+    // side effect
+    // it gets executed when handleStopRemovePlace function is executed
+    // it's executed when one of the items is clicked not app component is executed
+    // so it does not cause infinite loop
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    if (storedIds.indexOf(id) === -1) {
+      localStorage.setItem(
+        "seletectedPlaces",
+        JSON.stringify([id, ...storedIds])
+      );
+    }
   }
 
   function handleRemovePlace() {
