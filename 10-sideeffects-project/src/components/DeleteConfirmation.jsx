@@ -12,7 +12,8 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
       console.log("Cleaning up timer ");
       clearTimeout(timer);
     };
-  }, []);
+  }, [onConfirm]);
+  // onconfirm is a function and return value is a function might create infinite loop
 
   return (
     <div id="delete-confirmation">
