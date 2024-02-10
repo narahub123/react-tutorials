@@ -7,11 +7,19 @@ import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "./assets/logo.png";
 import { sortPlacesByDistance } from "./loc.js";
 
+// fetch all the items in local storage when the app starts
+// it doesn't work synchronously
+const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+const storedPlaces = storedIds.map((id) =>
+  AVAILABLE_PLACES.find((place) => place.id === id)
+);
+
 function App() {
   const modal = useRef();
+
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -43,6 +51,7 @@ function App() {
       return [place, ...prevPickedPlaces];
     });
 
+    // add selected place to local storage
     // side effect
     // it gets executed when handleStopRemovePlace function is executed
     // it's executed when one of the items is clicked not app component is executed
@@ -50,7 +59,7 @@ function App() {
     const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
     if (storedIds.indexOf(id) === -1) {
       localStorage.setItem(
-        "seletectedPlaces",
+        "selectedPlaces",
         JSON.stringify([id, ...storedIds])
       );
     }
@@ -61,6 +70,13 @@ function App() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modal.current.close();
+
+    // delete removed placed from local storage
+    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    localStorage.setItem(
+      "selectedPlaces",
+      JSON.stringify(storedIds.filter((id) => id !== selectedPlace.current))
+    );
   }
 
   return (
