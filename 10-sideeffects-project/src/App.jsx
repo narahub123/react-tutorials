@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
@@ -13,21 +13,26 @@ function App() {
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
+  // it doesn't return a value
+  // two arguments are needed
+  // first argument : wrapping side effect code - will be executed after every component execution
+  // sconde argument : an array of dependency
+  // if there is a change of dependency array, it executes first argument function
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const sortedPlaces = sortPlacesByDistance(
+        AVAILABLE_PLACES,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      setAvailablePlaces(sortedPlaces);
+    });
+  }, []);
+
   // get user's location
   // the sorted places are not available immedately bcoz the operation takes some time
   // getting the location after rendering App component
-  const sortedPlaces = navigator.geolocation.getCurrentPosition((position) => {
-    sortPlacesByDistance(
-      AVAILABLE_PLACES,
-      position.coords.latitude,
-      position.coords.longitude
-    );
-
-    // updated available places after fetching the operation get user's location
-    setAvailablePlaces(sortedPlaces);
-    // it causes re-excute the App component function
-    // fetching user's location again 
-  });
 
   function handleStartRemovePlace(id) {
     modal.current.open();
@@ -82,6 +87,7 @@ function App() {
         <Places
           title="Available Places"
           places={availablePlaces}
+          fallbackText="Sorting places by distance..."
           onSelectPlace={handleSelectPlace}
         />
       </main>
