@@ -1,0 +1,19 @@
+import { useState, useEffect } from "react";
+
+export default function QuestionTimer({ timeout, onTimeout }) {
+  // re-render progress bar
+  const [remainingTime, setRemainingTime] = useState(timeout);
+
+  useEffect(() => {
+    setTimeout(onTimeout, timeout);
+  }, [timeout, onTimeout]);
+
+  useEffect(() => {
+    // update progress bar
+    setInterval(() => {
+      setRemainingTime((prevRemainingTime) => prevRemainingTime - 100);
+    }, 100);
+  }, []);
+
+  return <progress id="question-time" max={timeout} value={remainingTime} />;
+}

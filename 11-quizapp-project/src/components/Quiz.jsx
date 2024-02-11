@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import QUESTIONS from "../questions.js";
 import quizCompleteImg from "../assets/quiz-complete.png";
+import QuestionTimer from "./QuestionTimer.jsx";
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -36,16 +37,26 @@ export default function Quiz() {
   shuffleAnswers.sort(() => Math.random() - 0.5); // shuffling
 
   return (
-    <div id="question">
-      <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-      <ul id="answers">
-        {shuffleAnswers.map((answer) => (
-          <li key={answer} className="answer">
-            {/* passing an argument */}
-            <button onClick={() => handleSelectAnswer(answer)}>{answer}</button>
-          </li>
-        ))}
-      </ul>
+    <div id="quiz">
+      <div id="question">
+        <QuestionTimer
+          timeout={10000}
+          onTimeout={() => {
+            handleSelectAnswer(null); // no answer is chosen for the question
+          }}
+        />
+        <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
+        <ul id="answers">
+          {shuffleAnswers.map((answer) => (
+            <li key={answer} className="answer">
+              {/* passing an argument */}
+              <button onClick={() => handleSelectAnswer(answer)}>
+                {answer}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
