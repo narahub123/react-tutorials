@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import QUESTIONS from "../questions.js";
 import quizCompleteImg from "../assets/quiz-complete.png";
@@ -14,12 +14,20 @@ export default function Quiz() {
   const quizIsCompleted = activeQuestionIndex === QUESTIONS.length; // we can not exceed number of questions we have
 
   // store selected answer in userAnswers array
-  function handleSelectAnswer(selectedAnswer) {
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(
+    selectedAnswer
+  ) {
     // update state based on previous state
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
     });
-  }
+  },
+  []);
+
+  const handleSkipAnswer = useCallback(
+    () => handleSelectAnswer(null),
+    [handleSelectAnswer]
+  );
 
   // disply on the screen when quiz is over
   if (quizIsCompleted) {
@@ -39,17 +47,11 @@ export default function Quiz() {
   return (
     <div id="quiz">
       <div id="question">
-        <QuestionTimer
-          timeout={10000}
-          onTimeout={() => {
-            handleSelectAnswer(null); // no answer is chosen for the question
-          }}
-        />
+        <QuestionTimer timeout={10000} onTimeout={handleSkipAnswer} />
         <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
         <ul id="answers">
           {shuffleAnswers.map((answer) => (
             <li key={answer} className="answer">
-              {/* passing an argument */}
               <button onClick={() => handleSelectAnswer(answer)}>
                 {answer}
               </button>
