@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import QUESTIONS from "../questions.js";
+import quizCompleteImg from "../assets/quiz-complete.png";
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
@@ -8,9 +9,9 @@ export default function Quiz() {
   // derived state : computed value
   const activeQuestionIndex = userAnswers.length;
 
-  // shuffle
-  const shuffleAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-  shuffleAnswers.sort(() => Math.random() - 0.5); // shuffling
+  // quiz is over: computed value
+  const quizIsCompleted = activeQuestionIndex === QUESTIONS.length; // we can not exceed number of questions we have
+
   // store selected answer in userAnswers array
   function handleSelectAnswer(selectedAnswer) {
     // update state based on previous state
@@ -18,6 +19,21 @@ export default function Quiz() {
       return [...prevUserAnswers, selectedAnswer];
     });
   }
+
+  // disply on the screen when quiz is over
+  if (quizIsCompleted) {
+    return (
+      <div id="summary">
+        <img src={quizCompleteImg} alt="Trophy icon" />
+        <h2>Quiz Completed!</h2>
+      </div>
+    );
+  }
+
+  // shuffle
+  // only execute only if we still have quizzes to display
+  const shuffleAnswers = [...QUESTIONS[activeQuestionIndex].answers];
+  shuffleAnswers.sort(() => Math.random() - 0.5); // shuffling
 
   return (
     <div id="question">
