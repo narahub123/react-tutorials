@@ -19,7 +19,6 @@ function App() {
       <Header />
       <main>
         <ConfigureCounter onSet={handleSetCount} />
-        {/* whenever key value changes  react will throw away the old component and recreate it  */}
         <Counter key={chosenCount} initialCount={chosenCount} />
         <Counter initialCount={0} />
       </main>
