@@ -33,7 +33,7 @@ const Counter = memo(function Counter({ initialCount }) {
     [initialCount]
   );
 
-  // reset counter 
+  // reset counter : it causes two component functions are executed
   useEffect(() => {
     setCounterChanges([{ value: initialCount, id: Math.random() * 1000 }]);
   }, [initialCount]);
