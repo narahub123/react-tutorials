@@ -18,9 +18,15 @@ class UserFinder extends Component {
   constructor() {
     super();
     this.state = {
-      filteredUsers: DUMMY_USERS,
+      filteredUsers: [],
       searchTerm: "",
     };
+  }
+
+  // mount first time
+  componentDidMount() {
+    // send http request...
+    this.setState({ filteredUsers: DUMMY_USERS });
   }
 
   // side effect
