@@ -16,7 +16,6 @@ export default function AvailablePlaces({ onSelectPlace }) {
       try {
         const places = await fetchAvailablePlaces();
 
-        // need to fetch user's location before set available places to calculate the distance of places
         navigator.geolocation.getCurrentPosition((position) => {
           const sortedPlaces = sortPlacesByDistance(
             places,
@@ -34,8 +33,6 @@ export default function AvailablePlaces({ onSelectPlace }) {
         });
         setIsFetching(false);
       }
-
-      // setIsFetching(false);
     }
 
     fetchPlaces();
