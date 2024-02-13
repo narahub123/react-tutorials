@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Places from "./Places.jsx";
 
 const places = localStorage.getItem("places");
@@ -6,15 +6,17 @@ const places = localStorage.getItem("places");
 export default function AvailablePlaces({ onSelectPlace }) {
   const [availablePlaces, setAvailablePlaces] = useState([]);
 
-  // a function that can be used to send http request to some other servers
-  // the code executes whenever component function executes => may cause infinite loop
-  fetch("http://localhost:3000/place")
-    .then((response) => {
-      return response.json();
-    })
-    .then((resData) => {
-      setAvailablePlaces(resData.places); // it causes the component function executes again
-    });
+  // useEffect function executes right after component funtions executes
+  // only if the dependencies changed
+  useEffect(() => {
+    fetch("http://localhost:3000/places")
+      .then((response) => {
+        return response.json();
+      })
+      .then((resData) => {
+        setAvailablePlaces(resData.places); // it causes the component function executes again
+      });
+  }, []);
 
   return (
     <Places
