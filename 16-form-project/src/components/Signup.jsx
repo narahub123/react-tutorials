@@ -2,12 +2,15 @@ export default function Signup() {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const fd = new FormData(event.target); // all the inputs that you wanna extract values must have name prop
+    const fd = new FormData(event.target);
     const acquisitionChannel = fd.getAll("acquisition");
-    const data = Object.fromEntries(fd.entries()); // understand it |  multiple value input fields are lost when use fromentries
+    const data = Object.fromEntries(fd.entries());
     data.acquisition = acquisitionChannel;
 
     console.log(data);
+
+    // reset forms 
+    event.target.reset();
   }
 
   return (
