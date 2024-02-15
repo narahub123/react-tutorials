@@ -10,7 +10,7 @@ export default function Meals() {
     data: loadedMeals,
     isLoading,
     error,
-  } = useHttp("http://localhost:3000/mealsss", requestConfig, []);
+  } = useHttp("http://localhost:3000/meals", requestConfig, []);
 
   console.log(loadedMeals);
 
@@ -21,23 +21,6 @@ export default function Meals() {
   if (error) {
     return <Error title="Failed to fetch meals" message={error} />;
   }
-  // const [loadedMeals, setLoadMeals] = useState([]);
-
-  // useEffect(() => {
-  //   async function fetchMeals() {
-  //     const response = await fetch("http://localhost:3000/meals");
-
-  //     if (!response.ok) {
-  //       //...
-  //     }
-
-  //     const meals = await response.json();
-
-  //     setLoadMeals(meals);
-  //   }
-
-  //   fetchMeals();
-  // }, []);
 
   return (
     <ul id="meals">

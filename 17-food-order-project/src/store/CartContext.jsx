@@ -1,26 +1,17 @@
-// manage cart data and cart context
 // 1. spread data into all components
 import { createContext, useReducer } from "react";
 
 // 2. default value of context
-// plan of context in advance
 const CartContext = createContext({
   items: [],
   addItem: (item) => {},
   removeItem: (id) => {},
+  clearCart: () => {},
 });
 
 // 5. reducer function
-// return updated state
-// actioin : how to update state
 function cartReducer(state, action) {
   if (action.type === "ADD_ITEM") {
-    // ... update the state to add a meal item
-    // state.items.push(action.item);
-    // shouldn't mutate existing state like this
-    // bcoz push will add existing state => change the memory before cartReducer executes
-    // not all the time a new item added
-
     // check if we already have the item in item array
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
@@ -74,6 +65,10 @@ function cartReducer(state, action) {
     return { ...state, items: updatedItems };
   }
 
+  if (action.type === "CLEAR_CART") {
+    return { ...state, items: [] };
+  }
+
   return state;
 }
 
@@ -92,10 +87,15 @@ export function CartContextProvider({ children }) {
     dispatchCartAction({ type: "REMOVE_ITEM", id });
   }
 
+  function clearCart() {
+    dispatchCartAction({ type: "CLEAR_CART" });
+  }
+
   const cartContext = {
     items: cart.items,
     addItem,
     removeItem,
+    clearCart,
   };
 
   console.log(cartContext);
