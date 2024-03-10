@@ -21,11 +21,13 @@ const cartSlice = createSlice({
       } else {
         existingItem.quantity++;
         existingItem.totalPrice = existingItem.totalPrice + newItem.price;
+        state.totalQuantity++;
       }
     },
     removeItemFromCart(state, action) {
       const id = action.payload;
       const existingItem = state.items.find((item) => item.id === id);
+      state.totalQuantity--;
       if (existingItem.quantity === 1) {
         state.items = state.items.filter((item) => item.id != id);
       } else {
