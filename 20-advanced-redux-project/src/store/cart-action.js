@@ -19,7 +19,12 @@ export const fetchCartData = () => {
 
     try {
       const cartData = await fetchData();
-      dispatch(cartActions.replaceCart(cartData)); // it causes change the cart inside of redux
+      dispatch(
+        cartActions.replaceCart({
+          items: cartData.items || [],
+          totalQuantity: cartData.totalQuantity,
+        })
+      );
     } catch (error) {
       dispatch(
         uiActions.showNotification({
