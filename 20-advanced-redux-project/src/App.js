@@ -5,7 +5,7 @@ import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
-import { sendCartData } from "./store/cart-slice";
+import { sendCartData, fetchCartData } from "./store/cart-action";
 
 let isInitial = true;
 
@@ -15,13 +15,17 @@ function App() {
   const cart = useSelector((state) => state.cart);
   const notification = useSelector((state) => state.ui.notification);
 
+  // dispatch fetchCartData whenever the app starts
+  useEffect(() => {
+    dispatch(fetchCartData());
+  }, []);
+
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
 
-    // 2.1 dispatch sendCartData 
     dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
