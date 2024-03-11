@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/Home";
+import ProductsPage from "./pages/Products";
 
 // https://example.com/ : domain
 // /product : path
@@ -10,7 +11,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <HomePage />, // the path is active, the element should be loaded
   }, // route object
-  {},
+  { path: "/products", element: <ProductsPage /> },
 ]);
 
 function App() {
