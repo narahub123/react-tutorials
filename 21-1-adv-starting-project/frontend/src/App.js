@@ -6,6 +6,7 @@ import EventDetailPage from "./pages/EventDetailPage";
 import NewEventPage from "./pages/NewEventPage";
 import EditEventPage from "./pages/EditEventPage";
 import Root from "./pages/Root";
+import EventRoot from "./pages/EventRoot";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,19 +20,25 @@ function App() {
         }, // turn into index route
         {
           path: "events",
-          element: <EventsPage />,
-        },
-        {
-          path: "events/:eventId",
-          element: <EventDetailPage />,
-        },
-        {
-          path: "events/new",
-          element: <NewEventPage />,
-        },
-        {
-          path: "events/:eventId/edit",
-          element: <EditEventPage />,
+          element: <EventRoot />,
+          children: [
+            {
+              index: true,
+              element: <EventsPage />,
+            },
+            {
+              path: ":eventId",
+              element: <EventDetailPage />,
+            },
+            {
+              path: "new",
+              element: <NewEventPage />,
+            },
+            {
+              path: ":eventId/edit",
+              element: <EditEventPage />,
+            },
+          ],
         },
       ],
     },
