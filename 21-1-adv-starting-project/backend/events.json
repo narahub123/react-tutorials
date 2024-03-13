@@ -1,11 +1,1 @@
-{
-  "events": [
-    {
-      "id": "e1",
-      "title": "A dummy event",
-      "date": "2023-02-22",
-      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-      "description": "Join this amazing event and connect with fellow developers."
-    }
-  ]
-}
+{"events":[{"title":"Haerin","image":"https://www.famousbirthdays.com/faces/haerin-image.jpg","date":"2024-03-13","description":"haerin","id":"75d53023-80ef-45d0-ab85-8e555fb6ed20"},{"title":"Haerin","image":"https://www.famousbirthdays.com/faces/haerin-image.jpg","date":"2024-03-13","description":"haerin","id":"23f71822-20e7-4b01-a863-e3e0173c56f1"},{"title":"haerin","image":"https://www.famousbirthdays.com/faces/haerin-image.jpg","date":"2024-03-13","description":"Haerin","id":"6c9ca3f2-206f-4a67-9379-bdfd5af3e95d"},{"title":"Haerin ","image":"https://www.famousbirthdays.com/faces/haerin-image.jpg","date":"2024-03-13","description":"Haerin ","id":"d5c4145d-a63e-4176-bde2-1a60d6cf6019"},{"id":"e1","title":"A dummy event","date":"2023-02-22","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."}]}

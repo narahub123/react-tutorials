@@ -5,7 +5,7 @@ import EventsPage, { loader as eventLoader } from "./pages/EventsPage";
 import EventDetailPage, {
   loader as eventDetailLoader,
 } from "./pages/EventDetailPage";
-import NewEventPage from "./pages/NewEventPage";
+import NewEventPage, { action as newEventAction } from "./pages/NewEventPage";
 import EditEventPage from "./pages/EditEventPage";
 import Root from "./pages/Root";
 import EventRoot from "./pages/EventRoot";
@@ -49,6 +49,7 @@ function App() {
             {
               path: "new",
               element: <NewEventPage />,
+              action: newEventAction,
             },
           ],
         },
