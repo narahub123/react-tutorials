@@ -1,7 +1,11 @@
 import React from "react";
-
+import PageContent from "../components/PageContent";
 const ErrorPage = () => {
-  return <h1>An error occurred </h1>;
+  return (
+    <PageContent title="An error occurred">
+      <p>Something went wrong</p>
+    </PageContent>
+  );
 };
 
 export default ErrorPage;
