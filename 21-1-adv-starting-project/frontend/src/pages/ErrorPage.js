@@ -5,18 +5,13 @@ import PageContent from "../components/PageContent";
 import MainNavigation from "../components/MainNavigation";
 
 const ErrorPage = () => {
-  const error = useRouteError(); // give an error object
-  // the shape of the object now depends on whether you threw a response
-  // or any other kind of object or data
+  const error = useRouteError();
 
-  // error.stauts; // in the case of throwing response
-
-  // generic error handling code
   let title = "An error occurred!";
   let message = "Something went wrong!";
 
   if (error.status === 500) {
-    message = JSON.parse(error.data).message;
+    message = error.data.message;
   }
 
   if (error.status === 404) {
