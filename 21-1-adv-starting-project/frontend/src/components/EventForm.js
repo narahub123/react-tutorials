@@ -9,8 +9,6 @@ function EventForm({ method, event }) {
   }
 
   return (
-    // this request will not be sent to the backend automatically
-    // instead to the action
     <Form method="post" className={classes.form}>
       <p>
         <label htmlFor="title">Title</label>
