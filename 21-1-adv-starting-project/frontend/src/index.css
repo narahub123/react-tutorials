@@ -48,3 +48,19 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.nav-item {
+  margin-right: 1rem;
+}
+
+.nav-item a {
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+  color: #f6ad1b;
+}
+
+.active {
+  color: #f6ad1b;
+}
