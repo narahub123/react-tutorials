@@ -6,12 +6,11 @@ import EventItem from "./EventItem.jsx";
 import { fetchEvents } from "../../util/http.js";
 
 export default function NewEventsSection() {
-  // send http requests and get us the event data
-  // and get use information about loading state and potential error
-  // useQuery configuration
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["events"], // every query needs query key
-    queryFn: fetchEvents, // define actually code that will be executed and you will send actual request
+    queryKey: ["events"],
+    queryFn: fetchEvents,
+    staleTime: 5000, // control after which time react query will send the request to get updated data if it found data in the cache
+    // gcTime: 30000, // control how long the data in the cache will be capped around
   });
 
   let content;
