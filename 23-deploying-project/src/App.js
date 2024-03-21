@@ -40,8 +40,8 @@ const router = createBrowserRouter([
                 <PostPage />
               </Suspense>
             ),
-            loader: () =>
-              import("./pages/Post").then((module) => module.loader()),
+            loader: (meta) =>
+              import("./pages/Post").then((module) => module.loader(meta)),
           },
         ],
       },
