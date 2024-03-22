@@ -19,6 +19,7 @@ export default function EventDetails() {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["events"],
+        refetchType: "none", // the page that is currently at is not triggered again
       });
       navigate("/events");
     },
