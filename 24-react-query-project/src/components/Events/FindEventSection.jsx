@@ -10,14 +10,15 @@ export default function FindEventSection() {
   const [searchTerm, setSearchTerm] = useState();
 
   // this query is not sent before we have searchTerm
-  const { data, isPending, isError, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["events", { search: searchTerm }],
     queryFn: ({ signal }) => fetchEvents({ signal, searchTerm }),
+    enabled: searchTerm !== undefined, // control that query is enabled or disabled
   });
 
   let content = <p>Please enter a search term and to find events.</p>;
 
-  if (isPending) {
+  if (isLoading) {
     content = <LoadingIndicator />;
   }
 
