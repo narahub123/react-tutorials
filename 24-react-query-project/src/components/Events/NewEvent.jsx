@@ -5,6 +5,7 @@ import Modal from "../UI/Modal.jsx";
 import EventForm from "./EventForm.jsx";
 import { createNewEvent } from "../../util/http.js";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
+import { queryClient } from "../../util/http.js";
 
 export default function NewEvent() {
   const navigate = useNavigate();
@@ -12,6 +13,10 @@ export default function NewEvent() {
   // send data to backend, it send data only when you tell it to send data
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: createNewEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] }); // data fetched by a certain query is outdated
+      navigate("/events");
+    }, // only proceed when mutationFn succeed
   });
 
   function handleSubmit(formData) {
