@@ -1,4 +1,5 @@
 export default function Home() {
+  // console.log("Executing"); // can see the log on the terminal not console 
   return (
     <main>
       <img src="/logo.png" alt="A server surrounded by magic sparkles." />
