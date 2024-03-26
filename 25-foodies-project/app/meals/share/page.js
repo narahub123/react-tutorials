@@ -15,7 +15,6 @@ export default function ShareMealPage() {
         <form className={classes.form} action={shareMeal}>
           <div className={classes.row}>
             <p>
-              ``
               <label htmlFor="name">Your name</label>
               <input type="text" id="name" name="name" required />
             </p>
