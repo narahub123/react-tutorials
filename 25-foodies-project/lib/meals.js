@@ -10,6 +10,10 @@ export async function getMeals() {
   return db.prepare("SELECT * FROM meals").all();
 }
 
+export function getMeal(slug) {
+  return db.prepare("SELECT * FROM meals WHERE slug = ?").get(slug);
+}
+
 // run() insert
 // get() get a single data
 // all() get all the data
