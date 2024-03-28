@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 
 // /api/new-meetup
 // POST
-async function hander(req, res) {
+export default async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body;
 
@@ -13,9 +13,9 @@ async function hander(req, res) {
     );
     const db = client.db();
 
-    const meetupCollection = db.collection("meetups");
+    const meetupsCollection = db.collection("meetups");
 
-    const result = await meetupCollection.insertOne(data);
+    const result = await meetupsCollection.insertOne(data);
 
     console.log(result);
 
@@ -24,5 +24,3 @@ async function hander(req, res) {
     res.status(201).json({ message: "Meetup inserted" });
   }
 }
-
-export default hander();
