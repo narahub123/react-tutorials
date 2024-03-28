@@ -43,6 +43,9 @@ export async function getStaticProps() {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    revalidate: 10,
+    // the number of seconds NextJs will wait until it regenerates the page for incoming request
+    // occasionally re pre-genereated on the server after deployment
   };
 }
 
